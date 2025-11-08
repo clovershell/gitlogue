@@ -6,21 +6,30 @@ use crossterm::{
 };
 use ratatui::{
     backend::CrosstermBackend,
-    layout::{Constraint, Direction, Layout, Rect},
-    style::{Color, Style},
-    text::Line,
-    widgets::{Block, Borders, Paragraph},
+    layout::{Constraint, Direction, Layout},
     Frame, Terminal,
 };
 use std::io;
 
+use crate::panes::{EditorPane, FileTreePane, StatusBarPane, TerminalPane};
+
 pub struct UI {
     should_quit: bool,
+    file_tree: FileTreePane,
+    editor: EditorPane,
+    terminal: TerminalPane,
+    status_bar: StatusBarPane,
 }
 
 impl UI {
     pub fn new() -> Self {
-        Self { should_quit: false }
+        Self {
+            should_quit: false,
+            file_tree: FileTreePane,
+            editor: EditorPane,
+            terminal: TerminalPane,
+            status_bar: StatusBarPane,
+        }
     }
 
     pub fn run(&mut self) -> Result<()> {
@@ -93,76 +102,9 @@ impl UI {
             ])
             .split(content_layout[1]);
 
-        self.render_file_tree(f, content_layout[0]);
-        self.render_editor(f, right_layout[0]);
-        self.render_terminal(f, right_layout[1]);
-        self.render_status_bar(f, main_layout[1]);
-    }
-
-    fn render_file_tree(&self, f: &mut Frame, area: Rect) {
-        let block = Block::default()
-            .title("File Tree")
-            .borders(Borders::ALL)
-            .border_style(Style::default().fg(Color::Cyan));
-
-        let content = Paragraph::new(vec![
-            Line::from("src/"),
-            Line::from("  main.rs"),
-            Line::from("  git.rs"),
-            Line::from("  ui.rs"),
-            Line::from("Cargo.toml"),
-            Line::from("docs/"),
-            Line::from("  specification.md"),
-        ])
-        .block(block);
-
-        f.render_widget(content, area);
-    }
-
-    fn render_editor(&self, f: &mut Frame, area: Rect) {
-        let block = Block::default()
-            .title("Editor")
-            .borders(Borders::ALL)
-            .border_style(Style::default().fg(Color::Green));
-
-        let content = Paragraph::new(vec![
-            Line::from("fn main() -> Result<()> {"),
-            Line::from("    println!(\"git-logue v0.1.0\");"),
-            Line::from("    Ok(())"),
-            Line::from("}"),
-        ])
-        .block(block);
-
-        f.render_widget(content, area);
-    }
-
-    fn render_terminal(&self, f: &mut Frame, area: Rect) {
-        let block = Block::default()
-            .title("Terminal")
-            .borders(Borders::ALL)
-            .border_style(Style::default().fg(Color::Yellow));
-
-        let content = Paragraph::new(vec![
-            Line::from("$ git log --oneline"),
-            Line::from("8ec9a9c Merge pull request #14"),
-            Line::from("7f5db95 feat: add full file content extraction"),
-        ])
-        .block(block);
-
-        f.render_widget(content, area);
-    }
-
-    fn render_status_bar(&self, f: &mut Frame, area: Rect) {
-        let block = Block::default()
-            .borders(Borders::ALL)
-            .border_style(Style::default().fg(Color::White));
-
-        let status_text = vec![Line::from(
-            "git-logue v0.1.0 | Commit: abc123 | Author: User | Press 'q' to quit",
-        )];
-
-        let content = Paragraph::new(status_text).block(block);
-
-        f.render_widget(content, area);
+        self.file_tree.render(f, content_layout[0]);
+        self.editor.render(f, right_layout[0]);
+        self.terminal.render(f, right_layout[1]);
+        self.status_bar.render(f, main_layout[1]);
     }
 }

@@ -1,4 +1,5 @@
 mod git;
+mod panes;
 mod ui;
 
 use anyhow::{Context, Result};
