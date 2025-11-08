@@ -175,7 +175,9 @@ impl AnimationEngine {
         // Process all file changes
         for (index, change) in metadata.changes.iter().enumerate() {
             // Open file in editor
-            if index > 0 {
+            if index == 0 {
+                self.steps.push(AnimationStep::Pause { duration_ms: 1000 });
+            } else {
                 self.steps.push(AnimationStep::Pause { duration_ms: 1500 });
             }
             self.add_terminal_command(&format!("open {}", change.path));
@@ -239,14 +241,8 @@ impl AnimationEngine {
         });
         self.steps.push(AnimationStep::Pause { duration_ms: 2000 });
 
-        // Start with the first file's content
-        if let Some(change) = metadata.changes.first() {
-            if let Some(old_content) = &change.old_content {
-                self.buffer = EditorBuffer::from_content(old_content);
-            } else {
-                self.buffer = EditorBuffer::new();
-            }
-        }
+        // Start with empty editor (no file opened yet)
+        self.buffer = EditorBuffer::new();
     }
 
     /// Generate animation steps for a file change
