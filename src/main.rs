@@ -1,5 +1,8 @@
+mod git;
+
 use anyhow::{Context, Result};
 use clap::Parser;
+use git::GitRepository;
 use std::path::PathBuf;
 
 #[derive(Parser, Debug)]
@@ -68,12 +71,27 @@ fn main() -> Result<()> {
     println!("git-logue v0.1.0");
     println!("Repository: {}", repo_path.display());
     println!("Speed: {}ms per character", args.speed);
+    println!();
 
-    if let Some(commit) = &args.commit {
-        println!("Single-commit mode: {}", commit);
+    let repo = GitRepository::open(&repo_path)?;
+
+    if let Some(commit_hash) = &args.commit {
+        println!("Single-commit mode: {}", commit_hash);
+        let metadata = repo.get_commit(commit_hash)?;
+        print_commit_info(&metadata);
     } else {
         println!("Random commit loop mode");
+        let metadata = repo.random_commit()?;
+        println!("Selected random commit:");
+        print_commit_info(&metadata);
     }
 
     Ok(())
+}
+
+fn print_commit_info(metadata: &git::CommitMetadata) {
+    println!("  Hash:    {}", metadata.hash);
+    println!("  Author:  {}", metadata.author);
+    println!("  Date:    {}", metadata.date.format("%Y-%m-%d %H:%M:%S"));
+    println!("  Message: {}", metadata.message);
 }
