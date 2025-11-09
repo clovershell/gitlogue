@@ -1,11 +1,11 @@
 [package]
-name = "git-logue"
+name = "gitlogue"
 version = "0.1.0"
 edition = "2021"
 authors = ["unhappychoice"]
 description = "A Git history screensaver - watch your code rewrite itself"
 license = "MIT"
-repository = "https://github.com/unhappychoice/git-logue"
+repository = "https://github.com/unhappychoice/gitlogue"
 
 [dependencies]
 git2 = "0.19"
@@ -20,5 +20,5 @@ clap = { version = "4.5", features = ["derive"] }
 anyhow = "1.0"
 
 [[bin]]
-name = "git-logue"
+name = "gitlogue"
 path = "src/main.rs"

@@ -61,15 +61,20 @@ pub enum LineChangeType {
 pub struct LineChange {
     pub change_type: LineChangeType,
     pub content: String,
+    #[allow(dead_code)]
     pub old_line_no: Option<usize>,
+    #[allow(dead_code)]
     pub new_line_no: Option<usize>,
 }
 
 #[derive(Debug, Clone)]
 pub struct DiffHunk {
     pub old_start: usize,
+    #[allow(dead_code)]
     pub old_lines: usize,
+    #[allow(dead_code)]
     pub new_start: usize,
+    #[allow(dead_code)]
     pub new_lines: usize,
     pub lines: Vec<LineChange>,
 }
@@ -77,12 +82,16 @@ pub struct DiffHunk {
 #[derive(Debug, Clone)]
 pub struct FileChange {
     pub path: String,
+    #[allow(dead_code)]
     pub old_path: Option<String>,
     pub status: FileStatus,
+    #[allow(dead_code)]
     pub is_binary: bool,
     pub old_content: Option<String>,
+    #[allow(dead_code)]
     pub new_content: Option<String>,
     pub hunks: Vec<DiffHunk>,
+    #[allow(dead_code)]
     pub diff: String,
 }
 
