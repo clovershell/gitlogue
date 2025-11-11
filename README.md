@@ -97,6 +97,10 @@ Rust, TypeScript, JavaScript, Python, Go, Ruby, Swift, Kotlin, Java, PHP, C#, C,
 - [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute to the project
 - [Architecture Overview](docs/ARCHITECTURE.md) - Technical architecture and design decisions
 
+## Related Projects
+
+Want to actually type the code yourself? Check out [**GitType**](https://github.com/unhappychoice/gittype) - a CLI code-typing game that turns your source code into typing challenges.
+
 ## Contributing
 
 Contributions are welcome! Please read our [Contributing Guidelines](docs/CONTRIBUTING.md) for details on how to get started.
