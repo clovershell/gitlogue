@@ -99,7 +99,7 @@ Rust, TypeScript, JavaScript, Python, Go, Ruby, Swift, Kotlin, Java, PHP, C#, C,
 
 ## Related Projects
 
-Want to actually type the code yourself? Check out [**GitType**](https://github.com/unhappychoice/gittype) - a CLI code-typing game that turns your source code into typing challenges.
+Want to type code yourself? Try [**GitType**](https://github.com/unhappychoice/gittype).
 
 ## Contributing
 
