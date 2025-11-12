@@ -64,6 +64,9 @@ pub struct Args {
     )]
     pub background: Option<bool>,
 
+    #[arg(long, help = "Display third-party license information")]
+    pub license: bool,
+
     #[command(subcommand)]
     pub command: Option<Commands>,
 }
@@ -112,6 +115,12 @@ impl Args {
 
 fn main() -> Result<()> {
     let args = Args::parse();
+
+    // Handle --license flag
+    if args.license {
+        println!("{}", include_str!("../LICENSE-THIRD-PARTY"));
+        return Ok(());
+    }
 
     // Handle subcommands
     if let Some(command) = args.command {
