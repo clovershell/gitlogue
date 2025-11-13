@@ -74,7 +74,7 @@ async function generateOGP() {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
-                padding: '40px',
+                padding: '60px',
                 gap: 30,
               },
               children: [
@@ -233,7 +233,7 @@ async function generateOGP() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '30px',
+                padding: '50px',
                 backgroundColor: '#0C0C0F',
               },
               children: [
