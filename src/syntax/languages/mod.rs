@@ -8,7 +8,10 @@ pub mod css;
 pub mod dart;
 pub mod elixir;
 pub mod erlang;
+pub mod gdscript;
+pub mod gdshader;
 pub mod go_lang;
+pub mod godot_resource;
 pub mod haskell;
 pub mod html;
 pub mod java;
@@ -52,7 +55,10 @@ enum LanguageKind {
     Dart,
     Elixir,
     Erlang,
+    Gdscript,
+    Gdshader,
     Go,
+    GodotResource,
     Haskell,
     Html,
     Java,
@@ -137,9 +143,24 @@ fn by_name(raw: &str) -> Option<LanguageSupport> {
             highlight_query: erlang::HIGHLIGHT_QUERY,
             injection_query: None,
         },
+        LanguageKind::Gdscript => LanguageSupport {
+            language: gdscript::language(),
+            highlight_query: gdscript::HIGHLIGHT_QUERY,
+            injection_query: None,
+        },
+        LanguageKind::Gdshader => LanguageSupport {
+            language: gdshader::language(),
+            highlight_query: gdshader::HIGHLIGHT_QUERY,
+            injection_query: None,
+        },
         LanguageKind::Go => LanguageSupport {
             language: go_lang::language(),
             highlight_query: go_lang::HIGHLIGHT_QUERY,
+            injection_query: None,
+        },
+        LanguageKind::GodotResource => LanguageSupport {
+            language: godot_resource::language(),
+            highlight_query: godot_resource::HIGHLIGHT_QUERY,
             injection_query: None,
         },
         LanguageKind::Haskell => LanguageSupport {
@@ -265,7 +286,10 @@ fn resolve_language_kind(raw: &str) -> Option<LanguageKind> {
         "dart" => Some(LanguageKind::Dart),
         "ex" | "exs" | "elixir" => Some(LanguageKind::Elixir),
         "erl" | "hrl" | "es" | "escript" | "erlang" => Some(LanguageKind::Erlang),
+        "gd" | "gdscript" => Some(LanguageKind::Gdscript),
+        "gdshader" | "gdshaderinc" => Some(LanguageKind::Gdshader),
         "go" | "golang" => Some(LanguageKind::Go),
+        "tscn" | "tres" | "godot" | "godot-resource" => Some(LanguageKind::GodotResource),
         "hs" | "lhs" | "haskell" => Some(LanguageKind::Haskell),
         "html" | "htm" => Some(LanguageKind::Html),
         "java" => Some(LanguageKind::Java),
@@ -304,7 +328,10 @@ impl LanguageKind {
             LanguageKind::Dart => "dart",
             LanguageKind::Elixir => "elixir",
             LanguageKind::Erlang => "erlang",
+            LanguageKind::Gdscript => "gdscript",
+            LanguageKind::Gdshader => "gdshader",
             LanguageKind::Go => "go",
+            LanguageKind::GodotResource => "godot-resource",
             LanguageKind::Haskell => "haskell",
             LanguageKind::Html => "html",
             LanguageKind::Java => "java",
@@ -334,7 +361,7 @@ mod tests {
     use super::*;
     use tree_sitter::Parser;
 
-    const SUPPORTED_LANGUAGES: [(&str, bool); 31] = [
+    const SUPPORTED_LANGUAGES: [(&str, bool); 34] = [
         ("astro", true),
         ("bash", false),
         ("c", false),
@@ -345,7 +372,10 @@ mod tests {
         ("dart", false),
         ("elixir", false),
         ("erlang", false),
+        ("gdscript", false),
+        ("gdshader", false),
         ("go", false),
+        ("godot-resource", false),
         ("haskell", false),
         ("html", true),
         ("java", false),
@@ -368,7 +398,7 @@ mod tests {
         ("zig", false),
     ];
 
-    const CANONICAL_ALIASES: [(&str, &str); 31] = [
+    const CANONICAL_ALIASES: [(&str, &str); 34] = [
         ("astro", "astro"),
         ("shell", "bash"),
         ("h", "c"),
@@ -379,7 +409,10 @@ mod tests {
         ("dart", "dart"),
         ("exs", "elixir"),
         ("escript", "erlang"),
+        ("gd", "gdscript"),
+        ("gdshaderinc", "gdshader"),
         ("golang", "go"),
+        ("tscn", "godot-resource"),
         ("lhs", "haskell"),
         ("htm", "html"),
         ("java", "java"),
@@ -452,6 +485,11 @@ mod tests {
             ("styles/site.scss", "css"),
             ("components/App.tsx", "typescript"),
             ("templates/index.phtml", "php"),
+            ("scripts/player.gd", "gdscript"),
+            ("shaders/water.gdshaderinc", "gdshader"),
+            ("scenes/main.tscn", "godot-resource"),
+            ("resources/player.tres", "godot-resource"),
+            ("game/project.godot", "godot-resource"),
             ("docs/guide.md", "markdown"),
         ]
         .iter()

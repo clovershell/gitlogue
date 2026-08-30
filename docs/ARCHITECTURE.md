@@ -159,12 +159,14 @@ The engine uses carefully tuned timing multipliers to create realistic animation
 
 **Responsibility**: Provide syntax highlighting for code using tree-sitter.
 
-**Supported Languages** (26 total):
+**Supported Languages** (32 total):
 - Systems: Rust, C, C++, Zig
-- Web: TypeScript, JavaScript, HTML, CSS
-- Backend: Python, Go, Ruby, PHP, Java, C#, Kotlin, Swift
+- Web: TypeScript, JavaScript, HTML, CSS, Astro, Svelte
+- Backend: Python, Go, Ruby, PHP, Java, C#, Kotlin, Swift, Dart
 - Functional: Haskell, Scala, Clojure, Elixir, Erlang
-- Data: JSON, YAML, XML, Markdown, Dart
+- Scripting/Config: Bash, Lua, Nix
+- Game: Godot (GDScript / Shader / Resource)
+- Data: JSON, YAML, XML, Markdown
 
 **Architecture**:
 - Language detection by file extension

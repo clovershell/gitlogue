@@ -498,6 +498,61 @@ mod tests {
     }
 
     #[test]
+    fn godot_languages_highlight_representative_tokens() {
+        fn assert_highlights(path: &str, source: &str, expected: &[(&str, TokenType)]) {
+            let mut highlighter = Highlighter::new();
+            assert!(highlighter.set_language_from_path(path));
+            let spans = highlighter.highlight(source);
+
+            expected.iter().for_each(|(needle, token_type)| {
+                assert!(
+                    spans.iter().any(|span| {
+                        span.token_type == *token_type
+                            && source.get(span.start..span.end) == Some(*needle)
+                    }),
+                    "{path}: expected {needle:?} to be {token_type:?}"
+                );
+            });
+        }
+
+        assert_highlights(
+            "player.gd",
+            "extends Node3D\nfunc greet(name: String, count = 1) -> void:\n    var greeting = \"你好\"\n",
+            &[
+                ("func", TokenType::Keyword),
+                ("greet", TokenType::Function),
+                ("name", TokenType::Parameter),
+                ("count", TokenType::Parameter),
+                ("Node3D", TokenType::Type),
+                ("\"你好\"", TokenType::String),
+            ],
+        );
+        assert_highlights(
+            "player.gdshader",
+            "shader_type spatial;\nuniform vec4 tint;\nvoid fragment() { ALBEDO = tint.rgb; }\n",
+            &[
+                ("shader_type", TokenType::Keyword),
+                ("vec4", TokenType::Type),
+                ("fragment", TokenType::Function),
+                ("ALBEDO", TokenType::Constant),
+            ],
+        );
+        assert_highlights(
+            "player.tscn",
+            "; scene\n[gd_scene load_steps=3]\n[node name=\"Player\"]\nscript = ExtResource(\"1\")\nweapon_id = &\"smg30\"\nvisible = true\n",
+            &[
+                ("; scene", TokenType::Comment),
+                ("gd_scene", TokenType::Keyword),
+                ("load_steps", TokenType::Property),
+                ("ExtResource", TokenType::Type),
+                ("\"smg30\"", TokenType::String),
+                ("3", TokenType::Number),
+                ("true", TokenType::Constant),
+            ],
+        );
+    }
+
+    #[test]
     #[allow(deprecated)]
     fn highlight_returns_empty_when_parser_is_cancelled() {
         let mut highlighter = Highlighter::new();

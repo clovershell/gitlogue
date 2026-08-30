@@ -872,13 +872,15 @@ scrot ~/Pictures/rice-$(date +%Y%m%d-%H%M%S).png
 
 ## Supported Languages
 
-gitlogue provides syntax highlighting for 26 programming languages:
+gitlogue provides syntax highlighting for 32 programming languages:
 
 - **Systems**: Rust, C, C++, Zig
-- **Web**: TypeScript, JavaScript, HTML, CSS
-- **Backend**: Python, Go, Ruby, PHP, Java, C#, Kotlin, Swift
+- **Web**: TypeScript, JavaScript, HTML, CSS, Astro, Svelte
+- **Backend**: Python, Go, Ruby, PHP, Java, C#, Kotlin, Swift, Dart
 - **Functional**: Haskell, Scala, Clojure, Elixir, Erlang
-- **Markup/Data**: Markdown, JSON, YAML, XML, Dart
+- **Scripting/Config**: Bash, Lua, Nix
+- **Game**: Godot (GDScript / Shader / Resource)
+- **Markup/Data**: Markdown, JSON, YAML, XML
 
 The appropriate highlighter is automatically selected based on file extensions.
 
