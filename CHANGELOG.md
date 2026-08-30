@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.0] - 2026-08-30
+
+### ✨ Features
+
+- feat(syntax): add Godot file highlighting ([2aeb59b](https://github.com/unhappychoice/gitlogue/commit/2aeb59b))
+
+### 🐛 Bug Fixes
+
+- fix(syntax): narrow GDScript parameter highlights ([7362948](https://github.com/unhappychoice/gitlogue/commit/7362948))
+
+### 📝 Other Changes
+
+- chore: bump version to v0.11.0 ([4896e19](https://github.com/unhappychoice/gitlogue/commit/4896e19))
+- chore(nix): update nixpkgs to fix crate downloads (#234) ([e20bba9](https://github.com/unhappychoice/gitlogue/commit/e20bba9))
+- docs: refresh supported language lists ([b2991eb](https://github.com/unhappychoice/gitlogue/commit/b2991eb))
+- chore(deps): bump chrono-english from 0.1.8 to 0.2.0 (#233) ([4c2a482](https://github.com/unhappychoice/gitlogue/commit/4c2a482))
+- docs: count Godot as one supported language ([afe9928](https://github.com/unhappychoice/gitlogue/commit/afe9928))
+- docs: clarify supported language-family count ([5ad3092](https://github.com/unhappychoice/gitlogue/commit/5ad3092))
+- chore(deps): bump tree-sitter-scala from 0.26.0 to 0.26.2 ([2a4fd89](https://github.com/unhappychoice/gitlogue/commit/2a4fd89))
+- chore(ci): use personal git identity for automated commits ([8280084](https://github.com/unhappychoice/gitlogue/commit/8280084))
+- chore(deps): bump globset from 0.4.19 to 0.4.20 ([6e47f16](https://github.com/unhappychoice/gitlogue/commit/6e47f16))
+- chore(deps): bump toml from 1.1.3+spec-1.1.0 to 1.1.4+spec-1.1.0 ([a282dd3](https://github.com/unhappychoice/gitlogue/commit/a282dd3))
+- chore(deps): bump tree-sitter-erlang from 0.19.0 to 0.20.0 ([1fd9569](https://github.com/unhappychoice/gitlogue/commit/1fd9569))
+- chore: update flake.nix hashes for v0.10.0 ([3fb5c9a](https://github.com/unhappychoice/gitlogue/commit/3fb5c9a))
+
+
 ## [0.10.0] - 2026-07-25
 
 ### ✨ Features
@@ -20,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 📝 Other Changes
 
-- chore: bump version to v0.10.0 ([1733beb](https://github.com/unhappychoice/gitlogue/commit/1733beb))
+- chore: bump version to v0.10.0 ([28a2f04](https://github.com/unhappychoice/gitlogue/commit/28a2f04))
 - chore(deps): bump clap from 4.6.2 to 4.6.3 ([cb16226](https://github.com/unhappychoice/gitlogue/commit/cb16226))
 - chore(deps): bump serde from 1.0.228 to 1.0.229 ([bfa2e8f](https://github.com/unhappychoice/gitlogue/commit/bfa2e8f))
 - chore(deps): bump anyhow from 1.0.103 to 1.0.104 ([59a5273](https://github.com/unhappychoice/gitlogue/commit/59a5273))
